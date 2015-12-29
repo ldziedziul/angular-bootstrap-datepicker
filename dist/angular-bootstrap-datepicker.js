@@ -2243,7 +2243,7 @@
 /**
  * French (Switzerland) translation for bootstrap-datepicker
  * Christoph Jossi <c.jossi@ascami.ch>
- * Based on 
+ * Based on
  * French translation for bootstrap-datepicker
  * Nico Mollet <nico.mollet@gmail.com>
  */
@@ -2394,7 +2394,7 @@
 /**
  * Italian (Switzerland) translation for bootstrap-datepicker
  * Christoph Jossi <c.jossi@ascami.ch>
- * Based on 
+ * Based on
  * Italian translation for bootstrap-datepicker
  * Enrico Rubboli <rubboli@gmail.com>
  */
@@ -3062,17 +3062,13 @@ dp.directive('ngDatepicker', function() {
       dateOptions: '=',
       ngModel: '='
     },
-    template: "<input type=\"text\">",
+      template: "<div class=\"input-group date\">\n    <input type=\"text\" class=\"form-control\"><span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th\"></i></span>\n</div>",
     link: function(scope, element) {
       scope.inputHasFocus = false;
       element.datepicker(scope.dateOptions).on('changeDate', function(e) {
-        var defaultFormat, defaultLanguage, format, language;
-        defaultFormat = $.fn.datepicker.defaults.format;
-        format = scope.dateOptions.format || defaultFormat;
-        defaultLanguage = $.fn.datepicker.defaults.language;
-        language = scope.dateOptions.language || defaultLanguage;
+          element.datepicker(scope.dateOptions)
         return scope.$apply(function() {
-          return scope.ngModel = e !== void 0 ? e.target.value : '';
+            return scope.ngModel = e.date;
         });
       });
       element.find('input').on('focus', function() {
@@ -3081,7 +3077,7 @@ dp.directive('ngDatepicker', function() {
         return scope.inputHasFocus = false;
       });
       return scope.$watch('ngModel', function(newValue) {
-        if (!scope.inputHasFocus) {
+          if (!scope.inputHasFocus) {
           return element.datepicker('update', newValue);
         }
       });
